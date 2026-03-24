@@ -20,15 +20,15 @@ const addTemplateRecipients = async (req, res) => {
       return res.status(400).json({ message: "Template not found" });
     }
 
-    const isOwner = template.ChecklistTemplateOwners.some(
-      (owner) => owner.organisation_user_id === organisation_user_id
-    );
+    // const isOwner = template.ChecklistTemplateOwners.some(
+    //   (owner) => owner.organisation_user_id === organisation_user_id
+    // );
 
-    if (!isOwner) {
-      return res
-        .status(400)
-        .json({ message: "Unauthorized to modify this template" });
-    }
+    // if (!isOwner) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Unauthorized to modify this template" });
+    // }
 
     const createdRecipients = await prisma.templateRecipients.createMany({
       data: recipients.map((recipient) => ({
@@ -72,15 +72,15 @@ const removeTemplateRecipient = async (req, res) => {
       return res.status(400).json({ message: "Recipient not found" });
     }
 
-    const isOwner = recipient.checklistTemplate.ChecklistTemplateOwners.some(
-      (owner) => owner.organisation_user_id === organisation_user_id
-    );
+    // const isOwner = recipient.checklistTemplate.ChecklistTemplateOwners.some(
+    //   (owner) => owner.organisation_user_id === organisation_user_id
+    // );
 
-    if (!isOwner) {
-      return res
-        .status(400)
-        .json({ message: "Unauthorized to modify this template" });
-    }
+    // if (!isOwner) {
+    //   return res
+    //     .status(400)
+    //     .json({ message: "Unauthorized to modify this template" });
+    // }
 
     await prisma.templateRecipients.delete({
       where: { id: parseInt(recipient_id) },
