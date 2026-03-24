@@ -3,6 +3,18 @@ const nodemailer = require("nodemailer");
 const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
+const CHECKLIST_SENDER = {
+  name: "Checklist Submission",
+  address: process.env.OUTLOOK_EMAIL,
+};
+const OTP_SENDER = {
+  name: "Registration OTP",
+  address: process.env.OUTLOOK_EMAIL,
+};
+const PASSWORD_RESET_SENDER = {
+  name: "Password Reset",
+  address: process.env.OUTLOOK_EMAIL,
+};
 
 const formatChecklistDataForEmail = (items) => {
   if (!Array.isArray(items) || items.length === 0) {
@@ -81,7 +93,8 @@ const sendEmailToManager = async (
     `;
 
     const mailOptions = {
-      from: process.env.OUTLOOK_EMAIL,
+      from: CHECKLIST_SENDER,
+      sender: CHECKLIST_SENDER,
       to: recipientEmail.join(", "),
       cc: ccEmails.filter(Boolean).join(", "),
       subject: `Checklist Submitted by ${username}`,
@@ -252,7 +265,8 @@ const sendOtpEmail = async (recipientEmail, otp) => {
     `;
 
     const mailOptions = {
-      from: process.env.OUTLOOK_EMAIL,
+      from: OTP_SENDER,
+      sender: OTP_SENDER,
       to: recipientEmail,
       subject: "Your OTP for Registration",
       html: emailContent,
@@ -288,7 +302,8 @@ const sendForgetPasswordOTP = async (email, otp) => {
     `;
 
     const mailOptions = {
-      from: process.env.OUTLOOK_EMAIL,
+      from: PASSWORD_RESET_SENDER,
+      sender: PASSWORD_RESET_SENDER,
       to: email,
       subject: "Your Password Reset OTP",
       html: emailContent,
