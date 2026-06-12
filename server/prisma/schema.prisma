@@ -15,6 +15,9 @@ enum userPosition {
   TESTING
   SALESFORCE
   PUBLIC
+  DIGITAL_TRANSFORMATION
+  MARKETING
+  ERODE_INTERN
 }
 
 enum frequency {
@@ -89,7 +92,7 @@ model Organisation_User_position {
   id                   Int                @id @default(autoincrement())
   organisation_user_id Int
   user_id              Int?
-  user_position        userPosition
+  user_position        userPosition?
   created_at           DateTime           @default(now())
   OrganisationUsers    Organisation_Users @relation(fields: [organisation_user_id], references: [id])
   user                 User?              @relation(fields: [user_id], references: [id])
@@ -102,7 +105,7 @@ model tags {
   organisation_user_id Int
   created_at           DateTime
   recurrent            frequency
-  user_position        userPosition
+  user_position        userPosition?
   OrganisationUsers    Organisation_Users?  @relation(fields: [organisation_user_id], references: [id])
   ChecklistTemplate    checklist_template[]
   ChecklistItems       checklist_items[]
