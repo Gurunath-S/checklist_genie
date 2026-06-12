@@ -54,7 +54,7 @@ const getAllTemplate = async (req, res) => {
     res.status(200).json({ templates, tags });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to fetch templates." });
+    res.status(500).json({ message: "Failed to fetch templates.", error: error.message, stack: error.stack });
   }
 };
 
@@ -128,7 +128,7 @@ const createTemplate = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Failed to create template or add item." });
+    res.status(500).json({ message: "Failed to create template or add item.", error: error.message, stack: error.stack });
   }
 };
 
